@@ -32,7 +32,7 @@ public class Main extends Application{
 		stage.show();
 	}
 	public void stop() throws SQLException{
-		Model.connect.close();
+		//Model.connect.close();
 		System.out.println("Закрываем соединение.");
 	}
 

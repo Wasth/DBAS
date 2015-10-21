@@ -1,4 +1,6 @@
 package tars.controller;
+import java.io.*;
+
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import tars.Main;
@@ -15,13 +17,37 @@ public class LoginController {
 	TextField portField;
 	@FXML
 	Label infoLabel;
+	File file = new File(".loginSettings");
+	BufferedReader reader = null;
+	PrintWriter writer = null;
 	@FXML
-	public void initialize(){
-		
+	public void initialize() throws IOException{
+		if(file.exists()){
+			reader = new BufferedReader(new FileReader(file));
+			usernameField.setText(reader.readLine());
+			passField.setText(reader.readLine());
+			ipField.setText(reader.readLine());
+			portField.setText(reader.readLine());
+		}
 	}
-	public void enterClicked(){
+	public void enterClicked() throws IOException{
+		
+
+		if(!file.exists()){
+			file.createNewFile();
+			writer = new PrintWriter(file);
+			writer.println(usernameField.getText());
+			writer.println(passField.getText());
+			writer.println(ipField.getText());
+			writer.println(portField.getText());
+			writer.flush();
+			writer.close();
+		}
+		
+		
 		Model m = new Model(usernameField.getText(),passField.getText(),ipField.getText(),portField.getText());
 		MainWindowView viewWindow = new MainWindowView(m);
+		Main.stage.close();
 	}
 	public void closeClicked(){
 		Main.stage.close();
