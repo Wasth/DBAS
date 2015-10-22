@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import tars.model.Model;
 
 public class Main extends Application{
-	private static float version = 0.1f;
+	public static float version = 0.1f;
 	public static Stage stage;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

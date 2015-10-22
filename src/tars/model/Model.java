@@ -2,6 +2,7 @@ package tars.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 
 public class Model {
 	private String username;
@@ -9,6 +10,10 @@ public class Model {
 	private String host;
 	private String port;
 	public static Connection connect;
+	ResultSet databases;
+	ResultSet tables;
+	ResultSet fields;
+	ResultSet tableContent;
 	public Model(String username,String pass,String host,String port){
 		this.username = username;
 		this.pass = pass;
@@ -22,6 +27,7 @@ public class Model {
 			System.out.println("Не удалось установить соединение.");
 			ex.printStackTrace();
 		}
+		
 	}
 	public void showProperties(){
 		System.out.println(username+" "+pass+" "+host+" "+port);

@@ -1,5 +1,6 @@
 package tars.controller;
 import java.io.*;
+import java.sql.SQLException;
 
 import javafx.fxml.*;
 import javafx.scene.control.*;
@@ -30,7 +31,7 @@ public class LoginController {
 			portField.setText(reader.readLine());
 		}
 	}
-	public void enterClicked() throws IOException{
+	public void enterClicked() throws IOException, SQLException{
 		
 
 		if(!file.exists()){
