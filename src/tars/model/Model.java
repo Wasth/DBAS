@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 
 public class Model {
@@ -36,7 +38,7 @@ public class Model {
 		
 	}
 	public TreeView updateResultSet() throws SQLException{
-		
+		ObservableList<Database> DBS = FXCollections.observableArrayList();
 		TreeItem<String>rootItem = new TreeItem<String>("Databases");
 		ResultSet databases = stat.executeQuery("SHOW DATABASES;");
 		Statement statTables = connect.createStatement();
@@ -45,11 +47,15 @@ public class Model {
 			tables = statTables.executeQuery("SHOW TABLES FROM "+db+";");
 			TreeItem<String> item = new TreeItem<String>(db);
 			System.out.println(db);
+			Database dbObj = new Database(db);
 			while(tables.next()){
 				String tb = tables.getString("Tables_in_"+db);
-				item.getChildren().add(new TreeItem<String>(tb));
+				TreeItem<String> itemTable = new TreeItem<String>(tb);
+				dbObj.tables.add(itemTable);
+				item.getChildren().add(itemTable);
 				System.out.println("\t"+tb);
 			}
+			DBS.add(dbObj);
 			rootItem.getChildren().add(item);
 		}
 		databases.close();
