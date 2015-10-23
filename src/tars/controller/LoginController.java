@@ -34,8 +34,12 @@ public class LoginController {
 	public void enterClicked() throws IOException, SQLException{
 		
 
+		if(file.exists()){
+			file.delete();
+		}
 		if(!file.exists()){
 			file.createNewFile();
+		}
 			writer = new PrintWriter(file);
 			writer.println(usernameField.getText());
 			writer.println(passField.getText());
@@ -43,7 +47,7 @@ public class LoginController {
 			writer.println(portField.getText());
 			writer.flush();
 			writer.close();
-		}
+		
 		
 		
 		Model m = new Model(usernameField.getText(),passField.getText(),ipField.getText(),portField.getText());

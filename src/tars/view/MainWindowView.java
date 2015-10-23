@@ -21,10 +21,8 @@ public class MainWindowView {
 		SplitPane root = new SplitPane();
 		GridPane pane = new GridPane();
 		TreeItem<String>treeRoot = new TreeItem<String>("Databases");
-		TreeView<String>tree = new TreeView<String>(treeRoot);
-		Statement stat = m.connect.createStatement();
-		ResultSet res = stat.executeQuery("SHOW DATABASES;");
-		
+		TreeView<String>tree = m.updateResultSet();
+	
 		root.getItems().addAll(tree,pane);
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
