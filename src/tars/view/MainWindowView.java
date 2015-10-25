@@ -26,7 +26,6 @@ public class MainWindowView {
 		db = m;
 		root = new SplitPane();
 		pane = new GridPane();
-		TreeItem<String>treeRoot = new TreeItem<String>("Databases");
 		TreeView<String>tree = m.updateResultSet();
 		tree.addEventHandler(MouseEvent.MOUSE_CLICKED, new MainController());
 		root.getItems().addAll(tree,pane);

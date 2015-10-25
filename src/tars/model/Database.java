@@ -23,9 +23,7 @@ public class Database {
 				b = true;
 				System.out.println("Return "+b);
 			}
-			//System.out.println(tables.get(i).getValue());
 		}
-		System.out.println("Return "+b);
 		return b;
 	}
 }

@@ -27,32 +27,18 @@ public class MainController implements EventHandler<MouseEvent>{
 				Statement stat = null;
 				try {
 					stat = Model.connect.createStatement();
-				} catch (SQLException e) {
-					System.out.println("Connect failed");
-				
-				}
-				ResultSet rs = null;
-				try {
+					ResultSet rs = null;
 					String exe = "DESCRIBE "+Model.DBS.get(i).name+"."+selection;
 					rs = stat.executeQuery(exe);
 					System.out.println(exe);
-				} catch (SQLException e) {
-					System.out.println("Query execute failed");
-					
-				}
-				int j = 0;
-				try {
+					int j = 0;
 					MainWindowView.pane.getChildren().clear();
 					while(rs.next()){
-						//MainWindowView.root.getItems().remove(MainWindowView.pane);
-						
 						MainWindowView.pane.add(new Label(rs.getString("Field")+"\t"),j,0);
-						
-						//MainWindowView.root.getItems().add(MainWindowView.pane);
 						j++;
 					}
-				} catch (SQLException e) {
-					System.out.println("pane label add failed");
+				} catch (Exception e) {
+					System.out.println("EXception: "+e.getMessage());
 			
 				}
 			}
