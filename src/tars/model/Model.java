@@ -21,6 +21,7 @@ public class Model {
 	ResultSet fields;
 	ResultSet tableContent;
 	Statement stat;
+	public static ObservableList<Database> DBS = FXCollections.observableArrayList();
 	public Model(String username,String pass,String host,String port){
 		this.username = username;
 		this.pass = pass;
@@ -38,7 +39,7 @@ public class Model {
 		
 	}
 	public TreeView updateResultSet() throws SQLException{
-		ObservableList<Database> DBS = FXCollections.observableArrayList();
+		
 		TreeItem<String>rootItem = new TreeItem<String>("Databases");
 		ResultSet databases = stat.executeQuery("SHOW DATABASES;");
 		Statement statTables = connect.createStatement();
