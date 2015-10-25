@@ -47,14 +47,12 @@ public class Model {
 			String db = databases.getString("Database");
 			tables = statTables.executeQuery("SHOW TABLES FROM "+db+";");
 			TreeItem<String> item = new TreeItem<String>(db);
-			System.out.println(db);
 			Database dbObj = new Database(db);
 			while(tables.next()){
 				String tb = tables.getString("Tables_in_"+db);
 				TreeItem<String> itemTable = new TreeItem<String>(tb);
 				dbObj.tables.add(itemTable);
 				item.getChildren().add(itemTable);
-				System.out.println("\t"+tb);
 			}
 			DBS.add(dbObj);
 			rootItem.getChildren().add(item);
