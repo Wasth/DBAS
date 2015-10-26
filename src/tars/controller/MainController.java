@@ -14,7 +14,12 @@ import tars.view.MainWindowView;;
 public class MainController implements EventHandler<MouseEvent>{
 	public void handle(MouseEvent event) {
 		TreeView<String> item = (TreeView<String>) event.getSource();
-		String selection = item.getSelectionModel().getSelectedItem().getValue();
+		String selection = "";
+		try{
+			selection = item.getSelectionModel().getSelectedItem().getValue();
+		}catch(Exception ex){
+			System.out.println("Error. Exception mes: "+ex.getMessage());
+		}
 		System.out.println("Clicked: "+selection);
 		for(int i = 0;i < Model.DBS.size();i++){
 			if(Model.DBS.get(i).isHas(selection)){

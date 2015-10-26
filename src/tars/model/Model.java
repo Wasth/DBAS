@@ -38,7 +38,7 @@ public class Model {
 		}
 		
 	}
-	public TreeView updateResultSet() throws SQLException{
+	public TreeView<String> updateResultSet() throws SQLException{
 		
 		TreeItem<String>rootItem = new TreeItem<String>("Databases");
 		ResultSet databases = stat.executeQuery("SHOW DATABASES;");

@@ -27,6 +27,9 @@ public class MainWindowView {
 		root = new SplitPane();
 		pane = new GridPane();
 		TreeView<String>tree = m.updateResultSet();
+		pane.setPrefSize(750, 500);
+		tree.setMaxSize(150, 500);
+		tree.setMinSize(150, 500);
 		tree.addEventHandler(MouseEvent.MOUSE_CLICKED, new MainController());
 		root.getItems().addAll(tree,pane);
 		scene = new Scene(root);
