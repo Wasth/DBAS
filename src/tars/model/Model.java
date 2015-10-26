@@ -48,12 +48,15 @@ public class Model {
 			tables = statTables.executeQuery("SHOW TABLES FROM "+db+";");
 			TreeItem<String> item = new TreeItem<String>(db);
 			Database dbObj = new Database(db);
+			
 			while(tables.next()){
 				String tb = tables.getString("Tables_in_"+db);
 				TreeItem<String> itemTable = new TreeItem<String>(tb);
 				dbObj.tables.add(itemTable);
 				item.getChildren().add(itemTable);
 			}
+			dbObj.update();
+			System.out.println(dbObj.tables.size()+" - is size");
 			DBS.add(dbObj);
 			rootItem.getChildren().add(item);
 		}
