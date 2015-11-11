@@ -1,9 +1,9 @@
 package tars.controller;
-
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TreeView;
@@ -33,24 +33,33 @@ public class MainController implements EventHandler<MouseEvent>{
 					System.out.println(exe);
 					int j = 0;
 					MainWindowView.pane.getChildren().clear();
-					TableView<String>tablesView = new TableView<String>();
-					tablesView.setPrefHeight(500);
-					tablesView.setPrefWidth(750);
+				   
 					while(rs.next()){
-						TableColumn<String,String> col = new TableColumn<String,String>(rs.getString("Field"));
-						//tablesView.getColumns().
-						tablesView.getColumns().add(col);
-						tablesView.setEditable(true);
+						ListView<String> list = new ListView<String>();
+						
+						String field = rs.getString("Field");
+						MainWindowView.pane.add(new Label(field+" "),j,i);
+						System.out.println("Field "+field);
+						Statement stat1 = Model.connect.createStatement();
+						ResultSet rest = stat1.executeQuery("SELECT * FROM " + Model.DBS.get(i).name+"."+selection+";");
+						while(rest.next()){
+							
+							list.getItems().add(rest.getString(field));
+						}
+						MainWindowView.pane.add(list,j,i+1);
 						j++;
+						
 					}
-					tablesView.getItems().add("Qew");
-					MainWindowView.pane.add(tablesView,0,0);
+					
 				} catch (Exception e) {
 					System.out.println("EXception: "+e.getMessage());
 			
 				}
 			}
 		}
+		
+	}
+	public static void showTables(){
 		
 	}
 }
