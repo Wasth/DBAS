@@ -28,8 +28,7 @@ public class Database {
 			String prop = tables.get(i).getValue().toString();
 		//	Statement stat = Model.connect.createStatement();
 		//	ResultSet rs = stat.executeQuery("SELECT "+prop+" FROM "+name+prop);
-			tablesStringProperty[i] = new SimpleStringProperty("j4f");
-			strValues.add(i, prop);
+
 		}
 	}
 	public boolean isHas(String table){

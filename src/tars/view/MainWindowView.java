@@ -3,7 +3,6 @@ package tars.view;
 import java.sql.*;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 //import com.mysql.jdbc.Statement;
 
 import javafx.scene.Scene;
@@ -22,16 +21,19 @@ public class MainWindowView {
 	public static SplitPane root;
 	public static Scene scene;
 	public static Stage stage;
+	private static ScrollPane scrPane;
 	public MainWindowView(Model m) throws SQLException{
 		db = m;
 		root = new SplitPane();
 		pane = new GridPane();
+		scrPane = new ScrollPane();
+		scrPane.setContent(pane);
 		TreeView<String>tree = m.updateResultSet();
-		pane.setPrefSize(750, 500);
+		scrPane.setPrefSize(750, 500);
 		tree.setMaxSize(150, 500);
 		tree.setMinSize(150, 500);
 		tree.addEventHandler(MouseEvent.MOUSE_CLICKED, new MainController());
-		root.getItems().addAll(tree,pane);
+		root.getItems().addAll(tree,scrPane);
 		scene = new Scene(root);
 		stage = new Stage();
 		stage.setScene(scene);

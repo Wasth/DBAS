@@ -14,6 +14,10 @@ import tars.view.MainWindowView;;
 
 public class MainController implements EventHandler<MouseEvent>{
 	public void handle(MouseEvent event) {
+		showTables(event);
+		
+	}
+	public static void showTables(MouseEvent event){
 		TreeView<String> item = (TreeView<String>) event.getSource();
 		String selection = "";
 		try{
@@ -40,12 +44,18 @@ public class MainController implements EventHandler<MouseEvent>{
 						String field = rs.getString("Field");
 						MainWindowView.pane.add(new Label(field+" "),j,i);
 						System.out.println("Field "+field);
-						Statement stat1 = Model.connect.createStatement();
+						Statement stat1 = Model.connect.createStatement(); 
 						ResultSet rest = stat1.executeQuery("SELECT * FROM " + Model.DBS.get(i).name+"."+selection+";");
+						int c = 0;
 						while(rest.next()){
-							
+	
 							list.getItems().add(rest.getString(field));
+							c++;
 						}
+						if (c >= 16){
+						list.setPrefHeight(list.getHeight()+(25*c));	
+						}
+						list.addEventHandler(MouseEvent.MOUSE_CLICKED, new ListItemController(field,Model.DBS.get(i).name,"db"));
 						MainWindowView.pane.add(list,j,i+1);
 						j++;
 						
@@ -56,10 +66,6 @@ public class MainController implements EventHandler<MouseEvent>{
 			
 				}
 			}
-		}
-		
-	}
-	public static void showTables(){
-		
+		}		
 	}
 }
