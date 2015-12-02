@@ -10,6 +10,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseEvent;
 import tars.model.Database;
 import tars.model.Model;
+import tars.model.Table;
 import tars.view.MainWindowView;;
 
 public class MainController implements EventHandler<MouseEvent>{
@@ -20,6 +21,7 @@ public class MainController implements EventHandler<MouseEvent>{
 	public static void showTables(MouseEvent event){
 		TreeView<String> item = (TreeView<String>) event.getSource();
 		String selection = "";
+		Table.clear();
 		try{
 			selection = item.getSelectionModel().getSelectedItem().getValue();
 		}catch(Exception ex){
@@ -42,7 +44,8 @@ public class MainController implements EventHandler<MouseEvent>{
 						ListView<String> list = new ListView<String>();
 						
 						String field = rs.getString("Field");
-						MainWindowView.pane.add(new Label(field+" "),j,i);
+						Label label = new Label(field+" ");
+						MainWindowView.pane.add(label,j,i);
 						System.out.println("Field "+field);
 						Statement stat1 = Model.connect.createStatement(); 
 						ResultSet rest = stat1.executeQuery("SELECT * FROM " + Model.DBS.get(i).name+"."+selection+";");
@@ -56,6 +59,8 @@ public class MainController implements EventHandler<MouseEvent>{
 						list.setPrefHeight(list.getHeight()+(25*c));	
 						}
 						list.addEventHandler(MouseEvent.MOUSE_CLICKED, new ListItemController(field,Model.DBS.get(i).name,"db"));
+						Table.addList(list);
+						Table.addLabel(label);
 						MainWindowView.pane.add(list,j,i+1);
 						j++;
 						
