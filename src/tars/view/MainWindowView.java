@@ -12,6 +12,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import tars.Main;
 import tars.controller.MainController;
@@ -25,7 +26,7 @@ public class MainWindowView {
 	public static Stage stage;
 	private static ScrollPane scrPane;
 	static FlowPane verGrid;
-	static FlowPane buttonPane;
+	static HBox buttonPane;
 	static Button changeButton;
 	static Button addBeforeButton;
 	static Button addAfterButton;
@@ -39,15 +40,19 @@ public class MainWindowView {
 		delButton = new Button("Удалить");
 		
 		verGrid = new FlowPane(Orientation.HORIZONTAL);
-		buttonPane = new FlowPane(Orientation.VERTICAL);
+		buttonPane = new HBox();
 		root = new SplitPane();
 		pane = new GridPane();
 		scrPane = new ScrollPane();
-		scrPane.setContent(pane);
 		TreeView<String>tree = m.updateResultSet();
-		scrPane.setPrefSize(750, 500);
-		tree.setMaxSize(150, 500);
-		tree.setMinSize(150, 500);
+		
+		buttonPane.getChildren().addAll(changeButton,addBeforeButton,addAfterButton,delButton);
+		
+		scrPane.setContent(pane);
+		buttonPane.setMaxWidth(600);
+		scrPane.setPrefSize(600, 550);
+		tree.setMaxSize(150, 575);
+		tree.setMinSize(150, 575);
 		tree.addEventHandler(MouseEvent.MOUSE_CLICKED, new MainController());
 		verGrid.getChildren().addAll(scrPane,buttonPane);
 		root.getItems().addAll(tree,verGrid);
