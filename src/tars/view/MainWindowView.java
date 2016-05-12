@@ -4,17 +4,17 @@ import java.sql.*;
 import java.sql.SQLException;
 import java.sql.Statement;
 //import com.mysql.jdbc.Statement;
-
+import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.SplitPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import tars.Main;
+import tars.controller.ButtonsController;
 import tars.controller.MainController;
 import tars.model.Model;
 
@@ -31,13 +31,19 @@ public class MainWindowView {
 	static Button addBeforeButton;
 	static Button addAfterButton;
 	static Button delButton;
-	
+	public static String dbname;
+	public static String tablename;
+	public static String namefield;
+	public static String fieldscontent;
+	public static ListView<String> list;
 	public MainWindowView(Model m) throws SQLException{
 		db = m;
 		changeButton = new Button("Изменить");
 		addBeforeButton = new Button("Добавить до");		
 		addAfterButton = new Button("Добавить после");
 		delButton = new Button("Удалить");
+		
+		
 		
 		verGrid = new FlowPane(Orientation.HORIZONTAL);
 		buttonPane = new HBox();
@@ -47,6 +53,11 @@ public class MainWindowView {
 		TreeView<String>tree = m.updateResultSet();
 		
 		buttonPane.getChildren().addAll(changeButton,addBeforeButton,addAfterButton,delButton);
+		
+		changeButton.addEventHandler(MouseEvent.MOUSE_CLICKED, new ButtonsController("change"));
+		addBeforeButton.addEventHandler(MouseEvent.MOUSE_CLICKED, new ButtonsController("addbefore"));
+		addAfterButton.addEventHandler(MouseEvent.MOUSE_CLICKED, new ButtonsController("addafter"));
+		delButton.addEventHandler(MouseEvent.MOUSE_CLICKED, new ButtonsController("del"));
 		
 		scrPane.setContent(pane);
 		buttonPane.setMaxWidth(600);
@@ -59,7 +70,7 @@ public class MainWindowView {
 		scene = new Scene(root);
 		stage = new Stage();
 		stage.setScene(scene);
-		stage.setTitle("Work Window [DBAS] v"+Main.version);
+		stage.setTitle("[DBAS] v"+Main.version);
 		stage.show();
 	}
 	public void repaint(SplitPane root){

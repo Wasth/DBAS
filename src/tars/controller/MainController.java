@@ -28,6 +28,7 @@ public class MainController implements EventHandler<MouseEvent>{
 			System.out.println("Error. Exception mes: "+ex.getMessage());
 		}
 		System.out.println("Clicked: "+selection);
+		MainWindowView.list = null;
 		for(int i = 0;i < Model.DBS.size();i++){
 			if(Model.DBS.get(i).isHas(selection)){
 				Statement stat = null;
@@ -44,7 +45,7 @@ public class MainController implements EventHandler<MouseEvent>{
 						ListView<String> list = new ListView<String>();
 						
 						String field = rs.getString("Field");
-						Label label = new Label(field+" ");
+						Label label = new Label(" "+field+" ");
 						MainWindowView.pane.add(label,j,i);
 						System.out.println("Field "+field);
 						Statement stat1 = Model.connect.createStatement(); 
@@ -58,7 +59,7 @@ public class MainController implements EventHandler<MouseEvent>{
 						if (c >= 16){
 						list.setPrefHeight(list.getHeight()+(25*c));	
 						}
-						list.addEventHandler(MouseEvent.MOUSE_CLICKED, new ListItemController(field,Model.DBS.get(i).name,"db"));
+						list.addEventHandler(MouseEvent.MOUSE_CLICKED, new ListItemController(field,Model.DBS.get(i).name,selection));
 						Table.addList(list);
 						Table.addLabel(label);
 						MainWindowView.pane.add(list,j,i+1);
