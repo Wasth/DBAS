@@ -25,6 +25,8 @@ public class ChangerController {
 			+ MainWindowView.tablename+" SET "
 			+MainWindowView.namefield+"='"+txtField.getText() + "' WHERE "+MainWindowView.namefield+"='"+MainWindowView.fieldscontent+"';";
 			stat.execute(q);
+			MainWindowView.tree = MainWindowView.m.updateResultSet();
+			MainController.showTables(MainWindowView.tree);
 			ButtonsController.stage.close();
 		}catch(Exception ex){
 			ex.printStackTrace();

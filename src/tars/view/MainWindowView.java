@@ -36,7 +36,10 @@ public class MainWindowView {
 	public static String namefield;
 	public static String fieldscontent;
 	public static ListView<String> list;
-	public MainWindowView(Model m) throws SQLException{
+	public static TreeView<String>tree;
+	public static Model m;
+	public MainWindowView(Model model) throws SQLException{
+		m = model;
 		db = m;
 		changeButton = new Button("Изменить");
 		addBeforeButton = new Button("Добавить до");		
@@ -50,7 +53,7 @@ public class MainWindowView {
 		root = new SplitPane();
 		pane = new GridPane();
 		scrPane = new ScrollPane();
-		TreeView<String>tree = m.updateResultSet();
+		tree = m.updateResultSet();
 		
 		buttonPane.getChildren().addAll(changeButton,addBeforeButton,addAfterButton,delButton);
 		
